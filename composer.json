@@ -1,0 +1,17 @@
+{
+    "name": "ob/videotron-bandwidth",
+    "description": "Check how much of your Videotron internet bandwidth you've used up.",
+    "license": "MIT",
+    "type": "project",
+
+    "authors": [
+        {
+            "name": "Marc Aubé"
+        }
+    ],
+
+    "require": {
+        "fabpot/goutte": "^3.1",
+        "vlucas/phpdotenv": "^2.2"
+    }
+}
