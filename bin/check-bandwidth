@@ -1,0 +1,27 @@
+#!/usr/bin/env php
+<?php
+
+if (!file_exists($autoloadFile = __DIR__ . '/../vendor/autoload.php') &&
+    !file_exists($autoloadFile = __DIR__ . '/../../../vendor/autoload.php')) {
+    die('You must set up the project dependencies, run composer install' . PHP_EOL);
+}
+
+require $autoloadFile;
+
+use Dotenv\Dotenv;
+use Goutte\Client;
+use Ob\Videotron\Videotron;
+
+$dotenv = new Dotenv(dirname(__DIR__));
+$dotenv->load();
+$dotenv->required(['USERNAME', 'PASSWORD']);
+
+$scraper = new Videotron(new Client(), getenv('USERNAME'), getenv('PASSWORD'));
+$scraper->login();
+$data = $scraper->getBandwidthUsage();
+$scraper->logout();
+
+echo $data['title'] . PHP_EOL;
+echo $data['updated'] . PHP_EOL;
+echo $data['usage'] . PHP_EOL;
+echo $data['ratio'] . PHP_EOL;
