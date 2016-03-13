@@ -17,7 +17,7 @@ Check how much of your internet bandwidth you've used up.
 
 ## Requirements
 
-* PHP >= 5.6
+* PHP >= 7.0
 
 
 ## License

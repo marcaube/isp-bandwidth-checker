@@ -11,5 +11,5 @@ interface InternetServiceProvider
      *
      * @throws InvalidCredentials
      */
-    public function getBandwidthUsage();
+    public function getBandwidthUsage() : BandwidthUsage;
 }

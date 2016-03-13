@@ -34,12 +34,7 @@ final class Videotron implements InternetServiceProvider
      */
     private $password;
 
-    /**
-     * @param Client $client
-     * @param string $username
-     * @param string $password
-     */
-    public function __construct(Client $client, $username, $password)
+    public function __construct(Client $client, string $username, string $password)
     {
         $this->client   = $client;
         $this->username = $username;
@@ -49,7 +44,7 @@ final class Videotron implements InternetServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function getBandwidthUsage()
+    public function getBandwidthUsage() : BandwidthUsage
     {
         $this->login();
 

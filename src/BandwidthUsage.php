@@ -5,12 +5,12 @@ namespace Ob\Bandwidth;
 final class BandwidthUsage
 {
     /**
-     * @var \DateTimeInterface
+     * @var \DateTimeImmutable
      */
     private $periodStart;
 
     /**
-     * @var \DateTimeInterface
+     * @var \DateTimeImmutable
      */
     private $periodEnd;
 
@@ -33,51 +33,36 @@ final class BandwidthUsage
     public function __construct(
         \DateTimeInterface $periodStart,
         \DateTimeInterface $periodEnd,
-        $allottedBandwidth,
-        $usedBandwidth
+        float $allottedBandwidth,
+        float $usedBandwidth
     ) {
-        $this->periodStart       = $periodStart;
-        $this->periodEnd         = $periodEnd;
+        $this->periodStart       = new \DateTimeImmutable($periodStart->format('Y-m-d'));
+        $this->periodEnd         = new \DateTimeImmutable($periodEnd->format('Y-m-d'));
         $this->allottedBandwidth = $allottedBandwidth;
         $this->usedBandwidth     = $usedBandwidth;
     }
 
-    /**
-     * @return \DateTimeInterface
-     */
-    public function periodStart()
+    public function periodStart() : \DateTimeImmutable
     {
         return $this->periodStart;
     }
 
-    /**
-     * @return \DateTimeInterface
-     */
-    public function periodEnd()
+    public function periodEnd() : \DateTimeImmutable
     {
         return $this->periodEnd;
     }
 
-    /**
-     * @return float
-     */
-    public function allottedBandwidth()
+    public function allottedBandwidth() : float
     {
         return $this->allottedBandwidth;
     }
 
-    /**
-     * @return float
-     */
-    public function usedBandwidth()
+    public function usedBandwidth() : float
     {
         return $this->usedBandwidth;
     }
 
-    /**
-     * @return float
-     */
-    public function usageRatio()
+    public function usageRatio() : float
     {
         return number_format($this->usedBandwidth() / $this->allottedBandwidth() * 100, 2);
     }
