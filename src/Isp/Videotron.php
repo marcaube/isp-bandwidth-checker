@@ -47,9 +47,42 @@ final class Videotron implements InternetServiceProvider
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getBandwidthUsage()
+    {
+        $this->login();
+
+        $crawler = $this->client->request('GET', self::URL_BANDWIDTH);
+
+        preg_match(
+            self::REGEX_PERIOD,
+            $crawler->filter('#titre_consommation h3')->first()->text(),
+            $period
+        );
+
+        preg_match(
+            self::REGEX_USAGE,
+            $crawler->filter('.quantities')->first()->text(),
+            $usage
+        );
+
+        $this->logout();
+
+        return new BandwidthUsage(
+            new \DateTimeImmutable($period[1]),
+            new \DateTimeImmutable($period[2]),
+            (float) $usage[2],
+            (float) $usage[1]
+        );
+    }
+
+    /**
+     * Login to Videotron's online customer center.
+     *
      * @throws InvalidCredentials
      */
-    public function login()
+    private function login()
     {
         $crawler = $this->client->request('GET', self::URL_LOGIN);
 
@@ -67,32 +100,11 @@ final class Videotron implements InternetServiceProvider
         });
     }
 
-    public function logout()
+    /**
+     * Sign-out from the online customer center.
+     */
+    private function logout()
     {
         $this->client->request('GET', self::URL_LOGOUT);
-    }
-
-    public function getBandwidthUsage()
-    {
-        $crawler = $this->client->request('GET', self::URL_BANDWIDTH);
-
-        preg_match(
-            self::REGEX_PERIOD,
-            $crawler->filter('#titre_consommation h3')->first()->text(),
-            $period
-        );
-
-        preg_match(
-            self::REGEX_USAGE,
-            $crawler->filter('.quantities')->first()->text(),
-            $usage
-        );
-
-        return new BandwidthUsage(
-            new \DateTimeImmutable($period[1]),
-            new \DateTimeImmutable($period[2]),
-            (float) $usage[2],
-            (float) $usage[1]
-        );
     }
 }
