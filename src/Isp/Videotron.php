@@ -1,11 +1,11 @@
 <?php
 
-namespace Ob\Videotron;
+namespace Ob\Bandwidth\Isp;
 
 use Goutte\Client;
+use Ob\Bandwidth\InternetServiceProvider;
 
-// TODO: extract an interface
-final class Videotron
+final class Videotron implements InternetServiceProvider
 {
     const URL_LOGIN     = 'https://www.videotron.com/client/residentiel/Espace-client';
     const URL_BANDWIDTH = 'https://www.videotron.com/client/residentiel/secur/CIUserSecurise.do';

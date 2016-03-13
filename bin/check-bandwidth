@@ -10,7 +10,7 @@ require $autoloadFile;
 
 use Dotenv\Dotenv;
 use Goutte\Client;
-use Ob\Videotron\Videotron;
+use Ob\Bandwidth\Isp\Videotron;
 
 $dotenv = new Dotenv(dirname(__DIR__));
 $dotenv->load();

@@ -1,7 +1,7 @@
 {
-    "name": "ob/videotron-bandwidth",
-    "description": "Check how much of your Videotron internet bandwidth you've used up.",
-    "keywords": ["videotron", "bandwidth", "scraper"],
+    "name": "ob/isp-bandwidth-checker",
+    "description": "Check how much of your internet bandwidth you've used up.",
+    "keywords": ["isp", "bandwidth", "scraper"],
 
     "license": "MIT",
     "type": "project",
@@ -23,13 +23,13 @@
 
     "autoload": {
         "psr-4": {
-            "Ob\\Videotron\\": "src/"
+            "Ob\\Bandwidth\\": "src/"
         }
     },
 
     "autoload-dev": {
         "psr-4": {
-            "Ob\\Videotron\\Tests\\": "tests/"
+            "Ob\\Bandwidth\\Tests\\": "tests/"
         }
     },
 
