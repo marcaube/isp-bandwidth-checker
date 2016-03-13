@@ -15,12 +15,12 @@ final class BandwidthUsage
     private $periodEnd;
 
     /**
-     * @var int
+     * @var float
      */
     private $allottedBandwidth;
 
     /**
-     * @var int
+     * @var float
      */
     private $usedBandwidth;
 

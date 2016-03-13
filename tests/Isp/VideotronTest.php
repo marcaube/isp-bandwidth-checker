@@ -10,17 +10,17 @@ use Symfony\Component\DomCrawler\Form;
 class VideotronTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Client|MockInterface
+     * @var MockInterface
      */
     private $client;
 
     /**
-     * @var Crawler|MockInterface
+     * @var MockInterface
      */
     private $crawler;
 
     /**
-     * @var Form|MockInterface
+     * @var MockInterface
      */
     private $form;
 
