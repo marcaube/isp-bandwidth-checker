@@ -4,6 +4,7 @@ namespace Ob\Bandwidth\Isp;
 
 use Goutte\Client;
 use Ob\Bandwidth\InternetServiceProvider;
+use Ob\Bandwidth\InvalidCredentials;
 
 final class Videotron implements InternetServiceProvider
 {
@@ -39,7 +40,7 @@ final class Videotron implements InternetServiceProvider
     }
 
     /**
-     * @throws \Exception
+     * @throws InvalidCredentials
      */
     public function login()
     {
@@ -55,8 +56,7 @@ final class Videotron implements InternetServiceProvider
         $crawler->filter('.error, .msg-error')->each(function ($node) {
             $message = trim($node->text());
 
-            // TODO: throw a domain exception
-            throw new \Exception($message);
+            throw new InvalidCredentials($message);
         });
     }
 
