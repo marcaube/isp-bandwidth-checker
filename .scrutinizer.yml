@@ -1,8 +1,6 @@
 inherit: true
 
 tools:
-    php_code_coverage:
-        test_command: vendor/bin/phpunit
     php_code_sniffer: true
     php_cpd: true
     php_cs_fixer: true
