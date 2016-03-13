@@ -50,7 +50,8 @@ class VideotronTest extends \PHPUnit_Framework_TestCase
         $this->client->shouldReceive('request')->with('GET', Videotron::URL_BANDWIDTH)->andReturn($this->crawler);
         $this->crawler->shouldReceive('filter')->andReturn($this->crawler);
         $this->crawler->shouldReceive('first')->andReturn($this->crawler);
-        $this->crawler->shouldReceive('text')->andReturn('Usage from  March 3 to April 2, 2016');
+        $this->crawler->shouldReceive('text')->once()->andReturn('Usage from  March 3 to April 2, 2016');
+        $this->crawler->shouldReceive('text')->once()->andReturn('24.4 / 130 GB');
 
         $usage = $this->isp->getBandwidthUsage();
 
@@ -66,7 +67,8 @@ class VideotronTest extends \PHPUnit_Framework_TestCase
         $this->client->shouldReceive('request')->with('GET', Videotron::URL_BANDWIDTH)->andReturn($this->crawler);
         $this->crawler->shouldReceive('filter')->andReturn($this->crawler);
         $this->crawler->shouldReceive('first')->andReturn($this->crawler);
-        $this->crawler->shouldReceive('text')->andReturn('24.4 / 130 GB');
+        $this->crawler->shouldReceive('text')->once()->andReturn('Usage from  March 3 to April 2, 2016');
+        $this->crawler->shouldReceive('text')->once()->andReturn('24.4 / 130 GB');
 
         $usage = $this->isp->getBandwidthUsage();
 
