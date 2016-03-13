@@ -93,11 +93,9 @@ final class Videotron implements InternetServiceProvider
             'motDePasse' => $this->password,
         ]);
 
-        $crawler->filter('.error, .msg-error')->each(function ($node) {
-            $message = trim($node->text());
-
-            throw new InvalidCredentials($message);
-        });
+        if ($crawler->filter('.error, .msg-error')->count() > 0) {
+            throw new InvalidCredentials();
+        }
     }
 
     /**
