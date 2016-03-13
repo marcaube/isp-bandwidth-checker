@@ -55,10 +55,6 @@ class BandwidthUsageTest extends \PHPUnit_Framework_TestCase
      */
     public function testBandwidthUsageRatioCanBeRetrieved(BandwidthUsage $usage)
     {
-        // One does not simply compare two floating point numbers in PHP...
-        $delta    = 0.001;
-        $expected = 18.77;
-
-        $this->assertTrue(abs(($usage->usageRatio() - $expected) / $expected) < $delta);
+        $this->assertEquals(18.77, $usage->usageRatio());
     }
 }
