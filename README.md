@@ -12,7 +12,7 @@ Check how much of your internet bandwidth you've used up.
 ## Usage
 
 1. copy `.env.dist` to `.env` and update with your ISP credentials.
-2. run `php bin/check-bandwith`
+2. run `php bin/check-bandwidth`
 
 
 ## Requirements
