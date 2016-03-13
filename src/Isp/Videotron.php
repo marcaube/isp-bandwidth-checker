@@ -3,14 +3,21 @@
 namespace Ob\Bandwidth\Isp;
 
 use Goutte\Client;
+use Ob\Bandwidth\BandwidthUsage;
 use Ob\Bandwidth\InternetServiceProvider;
 use Ob\Bandwidth\InvalidCredentials;
 
 final class Videotron implements InternetServiceProvider
 {
     const URL_LOGIN     = 'https://www.videotron.com/client/residentiel/Espace-client';
-    const URL_BANDWIDTH = 'https://www.videotron.com/client/residentiel/secur/CIUserSecurise.do';
+    const URL_BANDWIDTH = 'https://www.videotron.com/client/residentiel/secur/CIUserSecurise.do?locale=en';
     const URL_LOGOUT    = 'https://www.videotron.com/client/user-management/residentiel/secur/Logout.do?dispatch=logout';
+
+    // Captures "March 3" and "April 2" in "Usage from  March 3 to April 2, 2016"
+    const REGEX_PERIOD = '/Usage from\s+(.*?) to\s+(.+),/';
+
+    // Captures 24.4 and 130 from "24.4 / 130 GB"
+    const REGEX_USAGE = '/(\d+(?:.\d+)) \/ (\d+(?:.\d+))/';
 
     /**
      * @var Client
@@ -69,17 +76,23 @@ final class Videotron implements InternetServiceProvider
     {
         $crawler = $this->client->request('GET', self::URL_BANDWIDTH);
 
-        $title      = $crawler->filter('#titre_consommation h3')->first()->text();
-        $lastUpdate = $crawler->filter('#titre_consommation .details_mise_a_jour')->first()->text();
-        $usage      = $crawler->filter('.quantities')->first()->text();
-        $ratio      = $crawler->filter('.progress_bar')->first()->text();
+        preg_match(
+            self::REGEX_PERIOD,
+            $crawler->filter('#titre_consommation h3')->first()->text(),
+            $period
+        );
 
-        // TODO: replace with a VO
-        return [
-            'title'   => trim($title),
-            'updated' => trim($lastUpdate),
-            'usage'   => trim($usage),
-            'ratio'   => trim($ratio),
-        ];
+        preg_match(
+            self::REGEX_USAGE,
+            $crawler->filter('.quantities')->first()->text(),
+            $usage
+        );
+
+        return new BandwidthUsage(
+            new \DateTimeImmutable($period[1]),
+            new \DateTimeImmutable($period[2]),
+            (float) $usage[2],
+            (float) $usage[1]
+        );
     }
 }

@@ -7,7 +7,7 @@ interface InternetServiceProvider
     /**
      * Get your bandwidth usage statistics from the ISP.
      *
-     * @return array
+     * @return BandwidthUsage
      *
      * @throws InvalidCredentials
      */

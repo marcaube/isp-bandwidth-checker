@@ -18,10 +18,7 @@ $dotenv->required(['USERNAME', 'PASSWORD']);
 
 $scraper = new Videotron(new Client(), getenv('USERNAME'), getenv('PASSWORD'));
 $scraper->login();
-$data = $scraper->getBandwidthUsage();
+$usage = $scraper->getBandwidthUsage();
 $scraper->logout();
 
-echo $data['title'] . PHP_EOL;
-echo $data['updated'] . PHP_EOL;
-echo $data['usage'] . PHP_EOL;
-echo $data['ratio'] . PHP_EOL;
+echo $usage->usageRatio() . '%' . PHP_EOL;
