@@ -17,7 +17,7 @@ final class Videotron implements InternetServiceProvider
     const REGEX_PERIOD = '/Usage from\s+(.*?) to\s+(.+),/';
 
     // Captures 24.4 and 130 from "24.4 / 130 GB"
-    const REGEX_USAGE = '/(\d+(?:.{0,1}\d+)) \/ (\d+(?:.{0,1}\d+))/';
+    const REGEX_USAGE = '/(\d+(?:.\d+)?) \/ (\d+(?:.\d+)?)/';
 
     /**
      * @var Client
